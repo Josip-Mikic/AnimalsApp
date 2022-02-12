@@ -6,7 +6,7 @@ ES Lint, ES6+ Snippets,
 
 ## NPM packages
 
-react-router-dom
+react-router-dom, tailwindcss, axios
 
 ## How to start it
 
