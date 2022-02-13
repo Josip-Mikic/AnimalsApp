@@ -1,21 +1,31 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Header from "./Components/Header";
 import Favorites from "./Views/Favorites";
 import Homescreen from "./Views/Homescreen";
 
-const favorites = [];
-
 function App() {
+  const [favorite, setFavorite] = useState([]);
+  console.log(favorite);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homescreen favorites={favorites} />} />
-        <Route
-          path="/favorites"
-          element={<Favorites favorites={favorites} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <Header />{" "}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Homescreen favorite={favorite} setFavorite={setFavorite} />
+            }
+          />
+          <Route
+            path="/favorites"
+            element={<Favorites favorite={favorite} />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
