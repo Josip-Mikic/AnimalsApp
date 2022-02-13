@@ -23,20 +23,3 @@ export default function Favorites(props) {
     </div>
   );
 }
-/*
-
- <div className="flex  justify-around	items-center	 flex-wrap	w-5/6 m-auto	">
-        {images &&
-          images.map((image) => {
-            return (
-              <Image
-                key={image.id}
-                data={image}
-                favorite={props.favorite}
-                setFavorite={props.setFavorite}
-              />
-            );
-          })}
-      </div>
-
-*/

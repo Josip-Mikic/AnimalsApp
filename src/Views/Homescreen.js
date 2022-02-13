@@ -4,12 +4,20 @@ import Image from "../Components/Image";
 let response;
 
 export default function Homescreen(props) {
+  const [images, setImages] = useState();
+  const [breeds, setBreeds] = useState();
+  const [selectedOrder, setSelectedOrder] = useState("Random");
+  const [selectedType, setSelectedType] = useState("All");
+  const [selectedBreed, setSelectedBreed] = useState("");
+  const [selectedNumber, setSelectedNumber] = useState(9);
+
+  //Function that pings the API and recieves the dog images
   const loadData = async () => {
+    let contentType;
     axios.defaults.headers.common["x-api-key"] =
       "0bbc9ffe-7d9d-4c30-b8ad-97b4131c3bb8";
-    let contentType;
 
-    //Filtering types / Parsing data
+    //Filtering types
     if (selectedType === "All") {
       contentType = "jpg,png,gif";
     } else if (selectedType === "Static") {
@@ -36,23 +44,20 @@ export default function Homescreen(props) {
         mime_types: contentType,
       };
     }
+    //Getting the images and writing them into Hook
     response = await axios.get("https://api.thedogapi.com/v1/images/search", {
       params: params,
-    }); // Ask for 1 Image, at full resolution
+    });
     setImages(response.data);
   };
 
-  const [images, setImages] = useState();
-  const [selectedOrder, setSelectedOrder] = useState("Random");
-  const [selectedType, setSelectedType] = useState("All");
-  const [selectedBreed, setSelectedBreed] = useState("");
-  const [selectedNumber, setSelectedNumber] = useState(9);
-  const [breeds, setBreeds] = useState();
-
+  //Configured so that when the page loads, we preload breed data
+  //and then load sample images into app
   const getBreeds = async () => {
     if (!breeds) {
       response = await axios.get("https://api.thedogapi.com/v1/breeds");
       setBreeds(response.data);
+      loadData();
     }
   };
 
